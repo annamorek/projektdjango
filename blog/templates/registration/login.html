@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    {% if form.errors %}
+        <p>Login lub hasło nieprawidłowe. Spróbuj jeszcze raz</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+        <div class="input-field">Login
+        {{ form.username }}
+        </div>
+        <div class="input-field">Hasło
+        {{ form.password }}
+        </div> 
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">Zaloguj
+        </button>
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>System agregacji mikrointerakcji</title>
+
+  <!-- CSS  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+    
+<body>
+<!-- navbar -->
+  <div class="navbar-fixed">
+  <nav class="cyan darken-2" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="{% url 'post_list' %}" class="brand-logo">Mikrointerakcje</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="{% url 'about' %}">O stronie</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'post_new' %}">Dodaj wpis</a></li>
+        <li><a href="{% url 'post_draft_list' %}">Do opublikowania</a></li>
+        <li><a href="{% url 'logout' %}">Wyloguj {{ user.username }}</a>)</li>
+    {% else %}
+        <li><a href="{% url 'login' %}">Zaloguj się</span></a></li>
+    </ul>
+    {% endif %}
+      </ul>
+    </div>
+  </nav>
+  </div>
+
+    <div class="container center">
+      <h5 class="italic"><p class="condensed">„The difference between a product you love and one you tolerate are often microinteractions you have with it.”</p></h5>
+          <div class="right">  
+      <p>- Dan Saffer</p>
+        </div>
+    </div>
+    <div><br><br><br></div>
+
+
+    <div class="container">
+            {% block content %}
+            {% endblock %}
+    </div>
+    <div><br><br><br></div>
+<!-- footer -->
+  <footer class="page-footer cyan darken-3">
+    <div class="footer-copyright">
+      <div class="container center">
+      © Copyright by Anna Fejklowicz | 2017
+      </div>
+    </div>
+  </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</body>
+
+</html>
+

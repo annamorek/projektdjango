@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="icon-block">
+    	{% if user.is_authenticated %}
+        	{% if post.published_date %}
+        			
+			{% else %}
+                <a class="waves-effect waves-light btn" href="{% url 'post_publish' pk=post.pk %}"><i class="material-icons left">done</i>Opublikuj</a>
+			{% endif %}
+
+            <a class="waves-effect waves-light btn" href="{% url 'post_edit' pk=post.pk %}"><i class="material-icons left">edit</i>Edytuj</a>
+            <a class="waves-effect waves-light btn" href="{% url 'post_remove' pk=post.pk %}"><i class="material-icons left">delete_forever</i>Usuń</a>
+
+        {% endif %}
+        <h3>{{ post.title }}</h3>
+        Opublikowany: {{ post.published_date }}
+        <p>{{ post.text }}</p>
+    </div>
+    <hr>
+    <a class="btn btn-default waves-effect" href="{% url 'add_comment_to_post' pk=post.pk %}"><i class="material-icons left">add</i>Dodaj komentarz</a><br><br>
+
+{% for comment in post.comments.all %}
+    {% if user.is_authenticated or comment.approved_comment %}
+    <div class="">
+            
+        Autor: <strong>{{ comment.author }}</strong><br>
+        Opublikowany: {{ comment.created_date }}<br>
+        
+
+        {% if not comment.approved_comment %}
+                 <a class="btn btn-default waves-effect" href="{% url 'comment_approve' pk=comment.pk %}"><i class="material-icons left">check</i></span>Zatwierdź</a>
+                 <a class="btn btn-default waves-effect" href="{% url 'comment_remove' pk=comment.pk %}"><i class="material-icons left">close</i>Usuń</a>
+        {% endif %}
+        <p>{{ comment.text|linebreaks }}</p>
+
+    </div>    <div class="divider"></div>
+    {% endif %}
+{% empty %}
+    <p>Jeszcze nie ma komentarzy. Dodaj jako pierwszy!</p>
+{% endfor %}
+
+{% endblock %}
