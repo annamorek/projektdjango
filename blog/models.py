@@ -9,7 +9,7 @@ class Post(models.Model):
             default=timezone.now, verbose_name="Utworzono")
     published_date = models.DateTimeField(
             blank=True, null=True, verbose_name="Opublikowano")
-    
+    img = models.ImageField(upload_to='blog/', verbose_name="Obrazek")
     def publish(self):
         self.published_date = timezone.now()
         self.save()

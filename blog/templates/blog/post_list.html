@@ -1,16 +1,43 @@
 {% extends 'blog/base.html' %}
-{% load staticfiles %}
 
 {% block content %}
-    {% for post in posts %}
-        <div class="post">
-            <div class="date">
-                
+{% for post in posts %}
+    <div class="icon-block">
+             <h5 class="center light-cyan-text"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
+             <div class="">
+               <p class="small"> {{ post.published_date|date:"d/m/Y" }} </p>
             </div>
-            <h4><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h4>{{ post.published_date }}
-            <p>{{ post.text|linebreaksbr }}</p>
-            <a href="{% url 'post_detail' pk=post.pk %}">Komentarze: {{ post.approved_comments.count }}</a>
-        </div>
+            <p class="light"><p>{{ post.text|linebreaksbr }}</p>
+
+
+
+            <p><img class="" src="{{ post.img.url }}" />
+
+
+
+            <a href="{% url 'post_detail' pk=post.pk %}">Komentarze: {{ post.comments.count }}</a></p>
+      </div>
+    <div class="divider"></div>
+
     {% endfor %}
+
+
+<div class="pagination">
+      <ul>
+          {% if posts.has_previous %}
+              <li><a href="?page={{ posts.previous_page_number }}"><i class="material-icons">chevron_left</i></a></a></li>
+          {% endif %}
+          {% for pg in posts.paginator.page_range %}
+              {% if posts.number == pg %}
+                  <li class="active"><a href="?page={{ pg }}">{{ pg }}</a></li>
+              {% else %}
+                  <li><a href="?page={{ pg }}">{{ pg }}</a></li>
+              {% endif %}
+          {% endfor %}
+          {% if posts.has_next %}
+              <li><a href="?page={{ posts.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+          {% endif %}
+      </ul>
+    </div>
 
 {% endblock content %}

@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <h1>Dodawanie nowego komentarza</h1>
+    <h3>Dodawanie nowego komentarza</h3>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
                 <button class="btn waves-effect waves-light" type="submit" name="action">Wyślij

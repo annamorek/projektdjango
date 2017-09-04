@@ -13,8 +13,14 @@
             <a class="waves-effect waves-light btn" href="{% url 'post_remove' pk=post.pk %}"><i class="material-icons left">delete_forever</i>Usuń</a>
 
         {% endif %}
-        <h3>{{ post.title }}</h3>
+        <h4>{{ post.title }}</h4>
         Opublikowany: {{ post.published_date }}
+        
+
+         <p><img class="" src="{{ post.img.url }}" />
+
+
+
         <p>{{ post.text }}</p>
     </div>
     <hr>
